@@ -1,0 +1,21 @@
+@use '@/styles/abstracts' as *;
+
+.app {
+  @include flex-center(column, $space-lg);
+
+  min-height: 100%;
+  padding: $space-lg $space-md;
+  text-align: center;
+}
+
+.title {
+  margin-bottom: $space-xs;
+}
+
+.subtitle {
+  color: $color-text-muted;
+
+  @include respond-to('md') {
+    font-size: 1.125rem;
+  }
+}

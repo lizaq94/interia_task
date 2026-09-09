@@ -1,0 +1,30 @@
+@use 'sass:map';
+@use 'variables' as v;
+
+/// Media query helper: `@include respond-to('md') { ... }`
+@mixin respond-to($breakpoint) {
+  $value: map.get(v.$breakpoints, $breakpoint);
+
+  @if $value == null {
+    @error "Unknown breakpoint `#{$breakpoint}`. Available: #{map.keys(v.$breakpoints)}.";
+  }
+
+  @media (min-width: $value) {
+    @content;
+  }
+}
+
+@mixin flex-center($direction: row, $gap: 0) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+}
+
+@mixin focus-ring($color: v.$color-accent) {
+  &:focus-visible {
+    outline: 2px solid $color;
+    outline-offset: 2px;
+  }
+}
