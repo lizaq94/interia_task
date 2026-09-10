@@ -74,4 +74,16 @@ export function revealCell(board: Board, index: number): Board {
   }
 }
 
-export function toggleFlag(board: Board, index: number): Board
+export function toggleFlag(board: Board, index: number): Board {
+  if (hasGameEnded(board)) return board
+
+  const cell = board.cells[index]
+
+  if (!cell || cell.revealed) return board
+  return {
+    ...board,
+    cells: board.cells.map((current, i) =>
+      i === index ? { ...current, flagged: !current.flagged } : current,
+    ),
+  }
+}
