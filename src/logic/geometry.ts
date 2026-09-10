@@ -25,17 +25,3 @@ export function makeGeometry(width: number, height: number): Geometry {
 
   return { toIndex, toCoords, inBounds, findNeighbors }
 }
-
-export function resolveMinePositions(
-  mines: [number, number][],
-  geometry: Geometry,
-): ReadonlySet<number> {
-  const placedMines = new Set<number>()
-
-  for (const [x, y] of mines) {
-    if (!geometry.inBounds(x, y)) continue
-    placedMines.add(geometry.toIndex(x, y))
-  }
-
-  return placedMines
-}
