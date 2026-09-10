@@ -64,3 +64,32 @@ export function hasGameEnded(board: Board): boolean {
 export function revealAllMines(cells: readonly Cell[]): Cell[] {
   return cells.map((cell) => (cell.mine ? { ...cell, revealed: true } : cell))
 }
+
+export function collectChordReveals(
+  cells: readonly Cell[],
+  index: number,
+  geometry: Geometry,
+): ReadonlySet<number> {
+  const cell = cells[index]
+  const nothing: ReadonlySet<number> = new Set()
+
+  if (!cell?.revealed || cell.adjacent === 0) return nothing
+  const [x, y] = geometry.toCoords(index)
+  const neighbors = geometry.findNeighbors(x, y)
+  const flagCount = neighbors.filter((n) => cells[n]?.flagged).length
+
+  if (flagCount !== cell.adjacent) return nothing
+
+  const toReveal = new Set<number>()
+
+  for (const n of neighbors) {
+    const neighbor = cells[n]
+    if (!neighbor || neighbor.revealed || neighbor.flagged) continue
+
+    for (const i of cascadeReveal(cells, n, geometry)) {
+      toReveal.add(i)
+    }
+  }
+
+  return toReveal
+}

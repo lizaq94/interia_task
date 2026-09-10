@@ -2,6 +2,7 @@ import { makeGeometry } from '@/logic/geometry.ts'
 import { buildCells, resolveMinePositions } from '@/logic/mine.ts'
 import {
   cascadeReveal,
+  collectChordReveals,
   hasGameEnded,
   hasWon,
   revealAllMines,
@@ -49,20 +50,23 @@ export function revealCell(board: Board, index: number): Board {
 
   if (!cell) return board
   if (hasGameEnded(board)) return board
-  if (cell.revealed) return board
   if (cell.flagged) return board
 
   const geometry = makeGeometry(board.width, board.height)
-
   const safeCells = withSafeFirstMove(board, index, geometry)
-  const hasHitMine = safeCells[index]?.mine === true
 
-  const toReveal = cascadeReveal(safeCells, index, geometry)
+  const toReveal = cell.revealed
+    ? collectChordReveals(safeCells, index, geometry)
+    : cascadeReveal(safeCells, index, geometry)
+
+  if (toReveal.size === 0) return board
+
   const revealedCells = safeCells.map((current, i) => ({
     ...current,
     revealed: current.revealed || toReveal.has(i),
   }))
 
+  const hasHitMine = [...toReveal].some((i) => safeCells[i]?.mine)
   const cells = hasHitMine ? revealAllMines(revealedCells) : revealedCells
   const state = hasHitMine ? 'lost' : hasWon(cells) ? 'won' : 'playing'
 
