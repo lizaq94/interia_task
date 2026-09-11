@@ -1,12 +1,12 @@
 @use 'sass:map';
-@use 'variables' as v;
+@use 'breakpoints' as b;
 
 /// Media query helper: `@include respond-to('md') { ... }`
 @mixin respond-to($breakpoint) {
-  $value: map.get(v.$breakpoints, $breakpoint);
+  $value: map.get(b.$breakpoints, $breakpoint);
 
   @if $value == null {
-    @error "Unknown breakpoint `#{$breakpoint}`. Available: #{map.keys(v.$breakpoints)}.";
+    @error "Unknown breakpoint `#{$breakpoint}`. Available: #{map.keys(b.$breakpoints)}.";
   }
 
   @media (min-width: $value) {
@@ -22,7 +22,7 @@
   gap: $gap;
 }
 
-@mixin focus-ring($color: v.$color-accent) {
+@mixin focus-ring($color: var(--color-accent)) {
   &:focus-visible {
     outline: 2px solid $color;
     outline-offset: 2px;

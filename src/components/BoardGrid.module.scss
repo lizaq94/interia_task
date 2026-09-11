@@ -1,0 +1,17 @@
+@use '@/styles/abstracts' as *;
+
+.grid {
+  --field-size: 2rem;
+  background-color: var(--color-field-hidden);
+
+  display: grid;
+  width: fit-content;
+  position: relative;
+  border: 3px solid var(--color-bevel-dark);
+  border-right-color: var(--color-bevel-light);
+  border-bottom-color: var(--color-bevel-light);
+
+  @include respond-to('md') {
+    --field-size: 2.25rem;
+  }
+}

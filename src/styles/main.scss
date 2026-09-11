@@ -1,4 +1,5 @@
 // Global stylesheet — imported once, in src/main.tsx.
 // Component-scoped styles live next to their component as *.module.scss.
+@use 'base/tokens';
 @use 'base/reset';
 @use 'base/typography';

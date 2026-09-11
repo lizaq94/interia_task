@@ -1,0 +1,46 @@
+@use '@/styles/abstracts' as *;
+
+.status {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+
+  @include respond-to('md') {
+    width: var(--panel-width);
+  }
+}
+
+.counter {
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.message {
+  font-weight: 600;
+
+  &[data-state='won'] {
+    color: var(--color-success);
+  }
+
+  &[data-state='lost'] {
+    color: var(--color-danger);
+  }
+}
+
+.reset {
+  @include focus-ring;
+  width: 100%;
+
+  padding: var(--space-xs) var(--space-md);
+  color: var(--color-text);
+  cursor: pointer;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+
+  &:hover {
+    border-color: var(--color-accent);
+  }
+}

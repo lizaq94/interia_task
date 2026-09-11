@@ -1,37 +1,27 @@
-@use '../abstracts' as *;
-
 body {
-  font-family: $font-family-base;
-  font-size: $font-size-base;
-  line-height: $line-height-base;
-  color: $color-text;
-  background-color: $color-bg;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text);
+  background-color: var(--color-bg);
 }
 
 h1 {
-  font-size: 2.5rem;
-  line-height: 1.1;
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-tight);
 }
 
 h2 {
-  font-size: 1.5rem;
-  line-height: 1.2;
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-snug);
 }
 
 a {
-  color: $color-accent;
+  color: var(--color-accent);
   text-decoration: none;
 
   &:hover {
-    color: $color-accent-hover;
+    color: var(--color-accent-hover);
     text-decoration: underline;
   }
-}
-
-code {
-  padding: 0.1em 0.35em;
-  font-family: ui-monospace, 'SFMono-Regular', menlo, monospace;
-  font-size: 0.9em;
-  background-color: $color-surface;
-  border-radius: $radius-sm;
 }

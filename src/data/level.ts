@@ -21,3 +21,10 @@ const toLevel = (level: RawLevel): Level => ({
 })
 
 export const levels = raw.levels.map(toLevel)
+const [first] = levels
+
+if (first === undefined) {
+  throw new Error('saper-plansze.json contains no levels')
+}
+
+export const defaultLevel: Level = first
