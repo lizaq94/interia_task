@@ -1,6 +1,5 @@
 import { type Board, createBoard, type Level, revealCell, toggleFlag } from '@/logic/board.ts'
-import * as React from 'react'
-import { useCallback } from 'react'
+import { useCallback, useReducer } from 'react'
 
 type GameState = {
   level: Level
@@ -34,7 +33,7 @@ function gameReducer(state: GameState, action: GameAction) {
 }
 
 export function useMinesweeper(initialLevel: Level) {
-  const [{ level, board }, dispatch] = React.useReducer(gameReducer, initialLevel, startGame)
+  const [{ level, board }, dispatch] = useReducer(gameReducer, initialLevel, startGame)
 
   const reveal = useCallback((index: number) => {
     dispatch({ type: 'reveal', index })

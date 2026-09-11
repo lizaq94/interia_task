@@ -61,10 +61,9 @@ export function revealCell(board: Board, index: number): Board {
 
   if (toReveal.size === 0) return board
 
-  const revealedCells = safeCells.map((current, i) => ({
-    ...current,
-    revealed: current.revealed || toReveal.has(i),
-  }))
+  const revealedCells = safeCells.map((current, i) =>
+    toReveal.has(i) ? { ...current, revealed: true } : current,
+  )
 
   const hasHitMine = [...toReveal].some((i) => safeCells[i]?.mine)
   const cells = hasHitMine ? revealAllMines(revealedCells) : revealedCells
